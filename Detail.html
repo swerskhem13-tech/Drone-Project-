@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WiFi Drone Project | Engineering Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0c;
+            --bg-sidebar: #050505;
+            --bg-card: #16161a;
+            --accent: #00f2ff;
+            --text-main: #e0e0e0;
+            --text-dim: #a0a0a0;
+            --nav-width: 280px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .side-nav {
+            width: var(--nav-width);
+            height: 100vh;
+            background: var(--bg-sidebar);
+            position: fixed;
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem 1rem;
+            z-index: 1001;
+        }
+
+        .logo-box {
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+
+        .nav-menu { list-style: none; }
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+            display: block;
+            padding: 0.8rem 1rem;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            background: rgba(0, 242, 255, 0.1);
+            color: var(--accent);
+        }
+
+        /* Main Content Wrapper */
+        .content-wrapper {
+            margin-left: var(--nav-width);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Sticky Quick Access Bar */
+        .quick-nav {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 12, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+            flex-wrap: wrap;
+        }
+
+        .quick-nav a {
+            text-decoration: none;
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            border: 1px solid var(--accent);
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+
+        .quick-nav a:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            width: 100%;
+        }
+
+        .hero {
+            height: 60vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80&w=1600') center/cover;
+            display: flex;
+            align-items: center;
+        }
+
+        h2 { font-size: 1.8rem; color: var(--accent); margin-bottom: 2rem; display: flex; align-items: center; gap: 15px; }
+        h2::after { content: ''; height: 1px; flex-grow: 1; background: rgba(0, 242, 255, 0.2); }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid #222;
+        }
+
+        /* Diagram Box */
+        .diagram-container {
+            background: #000;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+        .flow { font-family: 'JetBrains Mono', monospace; color: var(--accent); }
+
+        @media (max-width: 1024px) {
+            .side-nav { display: none; }
+            .content-wrapper { margin-left: 0; }
+            .quick-nav { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="side-nav">
+        <div class="logo-box">Aerospace v1.0</div>
+        <ul class="nav-menu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#diagram">System Diagram</a></li>
+            <li><a href="#components">Components</a></li>
+            <li><a href="#power">Power System</a></li>
+            <li><a href="#camera">Camera System</a></li>
+        </ul>
+    </nav>
+
+    <div class="content-wrapper">
+        <div class="quick-nav">
+            <span style="color: #666; font-size: 0.8rem; align-self: center;">JUMP TO:</span>
+            <a href="#diagram">Diagram</a>
+            <a href="#components">Components</a>
+            <a href="#process">Construction</a>
+            <a href="#comm">Communication</a>
+            <a href="#power">Power</a>
+            <a href="#camera">Camera</a>
+            <a href="#features">Features</a>
+        </div>
+
+        <main>
+            <section id="home" class="hero">
+                <div>
+                    <h1 style="font-size: 3.5rem;">WiFi Drone <span>Interface</span></h1>
+                    <p style="color: var(--text-dim);">ESP32 Core & Pixhawk Flight Integration</p>
+                </div>
+            </section>
+
+            <section id="overview">
+                <h2>Project Overview</h2>
+                <p style="max-width: 800px; line-height: 1.8;">This project eliminates traditional radio controllers by creating a long-range WiFi bridge between a Ground Control Station and the Pixhawk flight controller using ESP32 modules. This allows for high-bandwidth telemetry and live video processing on a single 2.4GHz link.</p>
+            </section>
+
+            <section id="diagram">
+                <h2>Diagram</h2>
+                <div class="Diagram">
+                    <div class="flow">
+                        [ GCS APP ] ◄──WiFi──► [ ESP32 GROUND ] ◄──WiFi──► [ ESP32 AIR ] ◄──UART──► [ PIXHAWK ]   
+                        <a href="Diagram.html">Circuit Diagram</a>
+                    </div>
+                    <p style="margin-top: 2rem; font-size: 0.9rem; color: #555;">Full-duplex MAVLink packet transmission</p>
+                </div>
+            </section>
+
+            <section id="components">
+                <h2>Engineering Components</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>ESP32-WROOM-32U</h3>
+                        <p>Handles the WiFi-to-Serial bridge. The 'U' variant allows for external high-gain antennas.</p>
+                    </div>
+                    <div class="card">
+                        <h3>Pixhawk 2.4.8</h3>
+                        <p>The flight controller responsible for sensor fusion (IMU/Compass) and motor stabilization.</p> 
+                        <a href="https://ardupilot.org/copter/docs/common-pixhawk-overview.html">Pixhawk</a>
+                    </div>
+                    <div class="card">
+                        <h3>M7N GPS</h3>
+                        <p>Enables autonomous loitering and Return-To-Launch (RTL) safety modes.</p> 
+                        </div>
+                        
+                        <div class="card">
+                        <h3>D2830 Motors & 30A ESC</h3>
+                <p>High-torque brushless motors paired with Electronic Speed Controllers.</p>
+                <p><strong>Role:</strong> Provides the necessary thrust for a 1.2kg - 1.5kg lift capacity.</p>
+            </div>
+            <div class="card">
+                <span class="tag">Vision</span>
+                <h3>ESP32-CAM</h3>
+                <p>Low-cost camera module with integrated WiFi.</p>
+                <p><strong>Role:</strong> Captures and streams live FPV video to the ground station.</p>
+            </div>
+            <div class="card">
+                <span class="tag">Navigation</span>
+                <h3>M7N GPS Module</h3>
+                <p>High-precision GNSS receiver.</p>
+                <p><strong>Role:</strong> Enables Position Hold, Return-to-Launch, and Waypoint missions.</p>
+            </div>
+            <div class="card">
+                <span class="tag">Signal</span>
+                <h3>High Gain Antennas</h3>
+                <p>9dBi SMA Antennas connected via IPEX cables.</p>
+                <p><strong>Role:</strong> Extends the control range beyond standard integrated PCB limits.</p>
+            </div>
+        </div>
+    </section>
+
+<section id="systems" style="background: var(--bg-card); border-radius: 30px;">
+        <h2>Sub-System Analysis</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem;">
+            <div>
+                <h3 style="color: var(--accent);">Communication</h3>
+                <p>The Ground ESP32 creates a hidden WiFi Access Point. The Air ESP32 connects to it, creating a private tunnel for MAVLink packets.</p>
+            </div>
+            <div>
+                <h3 style="color: var(--accent);">Power Management</h3>
+                <p>A 14.8V LiPo is stepped down to 5.3V for the Pixhawk and a separate 5V 3A UBEC ensures the ESP32s don't brown out during transmission.</p>
+            </div>
+        </div>
+    </section>
+
+
+            <section id="comm">
+                <h2>Communication</h2>
+                <p>By using UDP (User Datagram Protocol), we minimize latency for real-time control while the ESP32 ensures the MAVLink frames are correctly encapsulated for transmission.</p>
+            </section>
+<section id="process">
+        <h2>Construction Process</h2>
+        <div class="step-list">
+            <div class="step-item">
+                <div>
+                    <h4>Frame Assembly</h4>
+                    <p>Constructed the F450 FlameWheel frame, ensuring all bolts are secured with thread-locker.</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div>
+                    <h4>Power Distribution</h4>
+                    <p>Soldered the ESCs to the frame's integrated power distribution board (PDB) and connected the 4S LiPo battery via a Power Module.</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div>
+                    <h4>Avionics Integration</h4>
+                    <p>Mounted the Pixhawk on dampeners. Wired the ESP32 to Telem1 port using a logic level converter (if required).</p>
+                </div>
+            </div>
+            <div class="step-item">
+                <div>
+                    <h4>Software Configuration</h4>
+                    <p>Flash ESP32 with custom Arduino/C++ code for UDP/TCP bridging. Calibrate Pixhawk via Mission Planner.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+            <section id="power">
+                <h2>Power System</h2>
+                <p>Powered by a 14.8V 4S LiPo. A 5V UBEC is critical to prevent the ESP32 from drawing power from the Pixhawk's internal rail.</p>
+            </section>
+
+            <section id="camera">
+                <h2>Camera System</h2>
+                <p>The ESP32-CAM module provides a 600x480 MJPEG stream, accessible via a dedicated IP address on the local drone network.</p>
+            </section>
+
+            <section id="features">
+                <h2>Key Features</h2>
+                <div class="grid">
+                    <div class="card" style="border-left: 4px solid var(--accent);">
+                        <p>• WiFi Control Link</p>
+                        <p>• Live FPV Video</p>
+                        <p>• Autonomous GPS Missions</p>
+                        <p>• Real-time Telemetry Data</p>
+                    </div> 
+                    <section id="future">
+        <h2>Future Horizons</h2>
+        <ul style="list-style: none; text-align: center; color: var(--text-dim);">
+            <li>🚀 Implementation of AI-based obstacle avoidance using LiDAR.</li>
+            <li>📡 Mesh networking between multiple drone units.</li>
+            <li>📱 Native Flutter-based mobile application for control.</li>
+        </ul>
+    </section>
+
+ <footer>
+        <p><strong>Engineering Capstone Project</strong></p>
+        <p style="color: var(--text-dim); font-size: 0.8rem; margin-top: 10px;">Designed for the intersection of Embedded Systems & Aerospace Technology.</p>
+    </footer>
+
+    <script>
+        // Smooth fade-in animation on scroll
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = "1";
+                    entry.target.style.transform = "translateY(0)";
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = "0";
+            section.style.transform = "translateY(30px)";
+            section.style.transition = "all 0.8s ease-out";
+            observer.observe(section);
+        });
+    </script>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Active link highlighting
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".nav-menu a, .quick-nav a");
+
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute("id");
+                }
+            });
+
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href").includes(current)) {
+                    link.classList.add("active");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

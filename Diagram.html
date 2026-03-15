@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physical Wiring Diagram | WiFi Drone</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0c10;
+            --card: #1f2833;
+            --accent: #66fcf1;
+            --wire-pwr: #ff4d4d;
+            --wire-sig: #f9d71c;
+            --wire-gnd: #ffffff;
+            --text: #c5c6c7;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container { width: 100%; max-width: 1100px; }
+
+        header {
+            border-bottom: 1px solid #45a29e;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .diagram-canvas {
+            background: #111;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Technical Label Styling */
+        .tech-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            fill: var(--accent);
+            text-transform: uppercase;
+        }
+
+        .legend {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            background: var(--card);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .legend-item { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+        .line { width: 40px; height: 3px; border-radius: 2px; }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 40px;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th { text-align: left; color: var(--accent); padding: 12px; border-bottom: 2px solid #45a29e; }
+        td { padding: 12px; border-bottom: 1px solid #333; }
+
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            svg { width: 100%; height: auto; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div>
+            <h1 style="color: white; margin: 0;">Physical Hardware Schematic</h1>
+            <p style="color: #45a29e; margin: 5px 0 0 0;">Component Placement & Signal Routing (Top-Down View)</p>
+        </div>
+        <a href="index.html" class="back-link">← RETURN TO PROJECT</a>
+    </header>
+
+    <div class="diagram-canvas">
+        <svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+            <path d="M400 100 L700 400 M400 100 L100 400 M400 500 L100 200 M400 500 L700 200" stroke="#222" stroke-width="40" stroke-linecap="round" opacity="0.5"/>
+            <rect x="320" y="180" width="160" height="240" rx="10" fill="#1a1a1a" stroke="#444" stroke-width="2"/>
+            
+            <circle cx="100" cy="200" r="25" fill="#333" stroke="#666"/>
+            <circle cx="700" cy="200" r="25" fill="#333" stroke="#666"/>
+            <circle cx="100" cy="400" r="25" fill="#333" stroke="#666"/>
+            <circle cx="700" cy="400" r="25" fill="#333" stroke="#666"/>
+            <text x="75" y="170" class="tech-label">Motor 1 (CW)</text>
+            <text x="675" y="170" class="tech-label">Motor 2 (CCW)</text>
+
+            <rect x="350" y="240" width="100" height="120" rx="5" fill="#2c3e50" stroke="#000" stroke-width="2"/>
+            <text x="365" y="305" fill="white" font-size="12" font-weight="bold">PIXHAWK</text>
+
+            <rect x="360" y="375" width="80" height="35" rx="3" fill="#000" stroke="#00f2ff"/>
+            <text x="375" y="397" fill="#00f2ff" font-size="10" font-family="monospace">ESP32 BRIDGE</text>
+
+            <rect x="370" y="150" width="60" height="40" rx="3" fill="#000" stroke="#f9d71c"/>
+            <text x="375" y="175" fill="#f9d71c" font-size="9" font-family="monospace">ESP-CAM</text>
+
+            <circle cx="550" cy="250" r="30" fill="#222" stroke="#45a29e" stroke-width="2"/>
+            <text x="535" y="255" fill="#45a29e" font-size="10" font-weight="bold">GPS</text>
+
+            <path d="M400 360 L400 375" stroke="#f9d71c" stroke-width="2" fill="none"/>
+            <circle cx="400" cy="360" r="3" fill="#f9d71c"/>
+            <text x="410" y="370" class="tech-label" style="fill:#f9d71c">MAVLink UART</text>
+
+            <rect x="340" y="500" width="120" height="60" rx="5" fill="#b00" opacity="0.8"/>
+            <text x="370" y="535" fill="white" font-weight="bold">4S LiPo</text>
+            
+            <path d="M400 500 L400 450" stroke="#ff4d4d" stroke-width="4" fill="none"/>
+            <rect x="370" y="420" width="60" height="30" fill="#333"/>
+            <text x="375" y="438" fill="white" font-size="8">PWR MOD</text>
+        </svg>
+    </div>
+
+    <div class="legend">
+        <div class="legend-item"><div class="line" style="background: var(--wire-pwr);"></div> Power Rail (5V/14.8V)</div>
+        <div class="legend-item"><div class="line" style="background: var(--wire-sig);"></div> MAVLink / Data Signal</div>
+        <div class="legend-item"><div class="line" style="
