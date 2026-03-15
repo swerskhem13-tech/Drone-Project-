@@ -1,2 +1,2 @@
-# Drone-Project-
+# Astrodrone-
 Detail of the drone project 
